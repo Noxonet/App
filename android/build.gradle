@@ -11,9 +11,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        // این خط مربوط به پلاگین اصلی اندروید گرادل است.
         classpath("com.android.tools.build:gradle:8.6.0")
-        // این خط مربوط به پلاگین React Native گرادل است.
         classpath("com.facebook.react:react-native-gradle-plugin")
     }
 }
