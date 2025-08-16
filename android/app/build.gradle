@@ -1,9 +1,12 @@
-apply plugin: 'com.android.application'
-apply plugin: 'com.facebook.react'
+plugins {
+    id 'com.android.application'
+    id 'com.facebook.react'
+}
 
 android {
     compileSdkVersion 34
     namespace "com.yaranahapp"
+    
     defaultConfig {
         applicationId "com.yaranahapp"
         minSdkVersion 21
@@ -11,6 +14,7 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
     signingConfigs {
         release {
             storeFile file('my-release-key.keystore')
@@ -19,6 +23,7 @@ android {
             keyPassword System.getenv("MYAPP_RELEASE_KEY_PASSWORD")
         }
     }
+
     buildTypes {
         release {
             minifyEnabled true
