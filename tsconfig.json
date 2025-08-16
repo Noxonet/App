@@ -1,5 +1,15 @@
 {
   "extends": "@react-native/typescript-config",
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["**/node_modules", "**/Pods"]
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*", "types/*"]
+    },
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "types": ["react-native", "node"]
+  },
+  "include": ["src/**/*", "types/**/*", "*.ts", "*.tsx"],
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "dist"]
 }

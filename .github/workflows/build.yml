@@ -1,0 +1,53 @@
+name: Build Android APK
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: # برای اجرای دستی
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      - name: Install npm dependencies
+        run: |
+          npm config set registry https://registry.npmjs.org/
+          npm install --verbose
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Make gradlew executable
+        run: |
+          cd android
+          chmod +x ./gradlew
+      - name: Build APK
+        env:
+          MYAPP_RELEASE_STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          MYAPP_RELEASE_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          MYAPP_RELEASE_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          cd android
+          ./gradlew clean
+          ./gradlew assembleRelease --stacktrace
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release.apk
+          path: android/app/build/outputs/apk/release/app-release.apk

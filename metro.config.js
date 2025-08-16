@@ -1,11 +1,16 @@
-const { getDefaultConfig, mergeConfig } = require('@react-native/metro-config');
+const { obfuscator } = require('javascript-obfuscator');
 
-/**
- * Metro configuration
- * https://reactnative.dev/docs/metro
- *
- * @type {import('@react-native/metro-config').MetroConfig}
- */
-const config = {};
-
-module.exports = mergeConfig(getDefaultConfig(__dirname), config);
+module.exports = {
+  transformer: {
+    getTransformOptions: async () => ({
+      transform: {
+        experimentalImportSupport: false,
+        inlineRequires: true,
+        transform: [{ obfuscate: true }],
+      },
+    }),
+  },
+  resolver: {
+    sourceExts: ['tsx', 'ts', 'jsx', 'js'],
+  },
+};
