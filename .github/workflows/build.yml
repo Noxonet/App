@@ -2,7 +2,7 @@ name: Build Android APK
 on:
   push:
     branches: [ main ]
-  workflow_dispatch: # برای اجرای دستی
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,10 +13,12 @@ jobs:
         with:
           node-version: '22'
           cache: 'npm'
+      - name: Clean npm cache
+        run: npm cache clean --force
       - name: Install npm dependencies
         run: |
           npm config set registry https://registry.npmjs.org/
-          npm install --verbose
+          npm install --verbose --no-audit --no-fund
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
@@ -37,6 +39,10 @@ jobs:
         run: |
           cd android
           chmod +x ./gradlew
+      - name: Debug Gradle dependencies
+        run: |
+          cd android
+          ./gradlew dependencies --scan
       - name: Build APK
         env:
           MYAPP_RELEASE_STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
@@ -45,7 +51,7 @@ jobs:
         run: |
           cd android
           ./gradlew clean
-          ./gradlew assembleRelease --stacktrace
+          ./gradlew assembleRelease --stacktrace --info
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
