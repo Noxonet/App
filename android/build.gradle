@@ -12,13 +12,12 @@ buildscript {
     }
     dependencies {
         classpath("com.android.tools.build:gradle:8.6.0")
-        classpath("com.facebook.react:react-native-gradle-plugin")
     }
 }
 
 allprojects {
     repositories {
-        mavenCentral()
         google()
+        mavenCentral()
     }
 }

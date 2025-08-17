@@ -1,20 +1,26 @@
 pluginManagement {
     repositories {
+        maven {
+            url("$rootDir/../node_modules/react-native/android")
+        }
         google()
         mavenCentral()
         gradlePluginPortal()
     }
+    includeBuild("../node_modules/@react-native/gradle-plugin")
 }
 
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
     repositories {
+        maven {
+            url("$rootDir/../node_modules/react-native/android")
+        }
         google()
         mavenCentral()
     }
 }
 
 rootProject.name = "android"
-include ':app'
-include ':react-native-background-fetch'
-includeBuild("../node_modules/@react-native/gradle-plugin")
+include(":app")
+include(":react-native-background-fetch")
