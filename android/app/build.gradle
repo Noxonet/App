@@ -1,19 +1,23 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     id 'com.android.application'
     id 'com.facebook.react'
 }
 
 android {
-    compileSdkVersion 34
     namespace "com.yaranahapp"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
     defaultConfig {
         applicationId "com.yaranahapp"
-        minSdkVersion 21
-        targetSdkVersion 34
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
+        // برای camera
+        missingDimensionStrategy "react-native-camera-android", "general"
     }
+
     signingConfigs {
         release {
             storeFile file('my-release-key.keystore')
@@ -22,21 +26,31 @@ android {
             keyPassword System.getenv("MYAPP_RELEASE_KEY_PASSWORD")
         }
     }
+
     buildTypes {
         release {
             minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            matchingFallbacks = ['release', 'debug']
+        }
+        debug {
+            matchingFallbacks = ['debug']
         }
     }
 }
 
+project.ext.react = [
+    enableHermes: true
+]
+
 dependencies {
+    implementation 'com.facebook.react:react-android:0.74.5'
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'io.socket:socket.io-client:2.0.0'
+
     implementation project(':react-native-background-fetch')
 }
-
-def enableHermes = true
