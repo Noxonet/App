@@ -16,5 +16,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "android"
 include ':app'
-include ':react-native-background-fetch' // این خط را اضافه کنید.
+include ':react-native-background-fetch'
 includeBuild("../node_modules/@react-native/gradle-plugin")
