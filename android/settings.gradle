@@ -11,10 +11,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://www.jitpack.io' }
     }
 }
 
 rootProject.name = "android"
 include ':app'
-include ':react-native-background-fetch'
-includeBuild("../node_modules/@react-native/gradle-plugin")
