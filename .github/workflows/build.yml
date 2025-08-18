@@ -18,16 +18,10 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - name: Clean npm cache
-        run: npm cache clean --force
-
       - name: Install npm dependencies
         run: |
           npm config set registry https://registry.npmjs.org/
-          npm ci --legacy-peer-deps --no-audit --no-fund --verbose
-
-      - name: Debug npm dependencies
-        run: npm list --depth=0 || true
+          npm ci --legacy-peer-deps --no-audit --no-fund
 
       - name: Post install (Jetify)
         run: npx jetify || true
@@ -47,7 +41,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v2
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v3
           restore-keys: |
             ${{ runner.os }}-gradle-
 
@@ -56,27 +50,13 @@ jobs:
           cd android
           chmod +x ./gradlew
 
-      - name: Pre-bundle Metro (Optional)
-        env:
-          NODE_OPTIONS: --max_old_space_size=4096
-        run: |
-          npx react-native bundle \
-            --platform android \
-            --dev false \
-            --entry-file index.js \
-            --bundle-output android/app/src/main/assets/index.android.bundle \
-            --assets-dest android/app/src/main/res \
-            --verbose || true
-
       - name: Build APK
         env:
           MYAPP_RELEASE_STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
           MYAPP_RELEASE_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           MYAPP_RELEASE_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          NODE_OPTIONS: --max_old_space_size=4096
         run: |
           cd android
-          ./gradlew clean --refresh-dependencies
           ./gradlew assembleRelease --stacktrace --info --no-daemon --console=plain
 
       - name: Upload APK
