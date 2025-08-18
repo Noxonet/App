@@ -21,5 +21,6 @@ allprojects {
         google()
         mavenCentral()
         maven { url 'https://www.jitpack.io' }   // ✅ اینم اضافه کن
+        maven { url "https://transistorsoft.github.io/react-native-background-fetch/repo" }
     }
 }
