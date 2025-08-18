@@ -1,16 +1,23 @@
-const { obfuscator } = require('javascript-obfuscator');
+// metro.config.js
+const { getDefaultConfig } = require("@react-native/metro-config");
+const JavaScriptObfuscator = require('javascript-obfuscator');
+
+const defaultConfig = getDefaultConfig(__dirname);
 
 module.exports = {
+  ...defaultConfig,
   transformer: {
+    ...defaultConfig.transformer,
+    babelTransformerPath: require.resolve('./transformer-obfuscator.js'),
     getTransformOptions: async () => ({
       transform: {
         experimentalImportSupport: false,
         inlineRequires: true,
-        transform: [{ obfuscate: true }],
       },
     }),
   },
   resolver: {
-    sourceExts: ['tsx', 'ts', 'jsx', 'js'],
+    ...defaultConfig.resolver,
+    sourceExts: ['tsx', 'ts', 'jsx', 'js', 'json'],
   },
 };
