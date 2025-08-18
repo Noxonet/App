@@ -8,28 +8,42 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # پایدارتر برای React Native
+          node-version: '20' # پایدار برای React Native
           cache: 'npm'
+
       - name: Clean npm cache
         run: npm cache clean --force
+
       - name: Install npm dependencies
         run: |
           npm config set registry https://registry.npmjs.org/
           npm config set strict-ssl false
-          npm ci --verbose --no-audit --no-fund --legacy-peer-deps
-      - name: Debug npm dependencies
+          npm ci --legacy-peer-deps
+
+      # ✅ اضافه شد: نصب metro-config (و هر dependency گم‌شده دیگر)
+      - name: Ensure required dependencies
         run: |
-          npm list --depth=0 || true
+          npm install @react-native/metro-config --save-dev
+          npm install @react-native-async-storage/async-storage --save
+          npm install @react-native-community/background-fetch --save
+          npm install react-native-permissions --save
+
+      - name: Debug npm dependencies
+        run: npm list --depth=0 || true
+
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
+
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+
       - name: Cache Gradle dependencies
         uses: actions/cache@v4
         with:
@@ -39,19 +53,25 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
+
       - name: Make gradlew executable
         run: |
           cd android
           chmod +x ./gradlew
+
       - name: Debug Metro bundle
         env:
-          NODE_OPTIONS: --max_old_space_size=4096 # افزایش حافظه
+          NODE_OPTIONS: --max_old_space_size=4096
         run: |
-          npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res --verbose --no-reset-cache || true
+          npx react-native bundle --platform android --dev false --entry-file index.js \
+            --bundle-output android/app/src/main/assets/index.android.bundle \
+            --assets-dest android/app/src/main/res --verbose --no-reset-cache || true
+
       - name: Debug Gradle dependencies
         run: |
           cd android
           ./gradlew dependencies --scan || true
+
       - name: Build APK
         env:
           MYAPP_RELEASE_STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
@@ -62,6 +82,7 @@ jobs:
           cd android
           ./gradlew clean
           ./gradlew assembleRelease --stacktrace --info --no-daemon --console=plain
+
       - name: Upload APK
         if: success()
         uses: actions/upload-artifact@v4
