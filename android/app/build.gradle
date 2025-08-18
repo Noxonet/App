@@ -43,7 +43,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'io.socket:socket.io-client:2.0.0'
     implementation project(':react-native-background-fetch')
-    implementation "com.transistorsoft:tsbackgroundfetch:4.0.3"
+    implementation "com.transistorsoft:tsbackgroundfetch:4.0.0"
 
 }
 
