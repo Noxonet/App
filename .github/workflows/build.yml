@@ -3,6 +3,7 @@ on:
   push:
     branches: [ main ]
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,7 +13,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # پایدار برای React Native
+          node-version: '20'
           cache: 'npm'
 
       - name: Clean npm cache
@@ -21,19 +22,13 @@ jobs:
       - name: Install npm dependencies
         run: |
           npm config set registry https://registry.npmjs.org/
-          npm config set strict-ssl false
-          npm ci --legacy-peer-deps
-
-      # ✅ اضافه شد: نصب metro-config (و هر dependency گم‌شده دیگر)
-      - name: Ensure required dependencies
-        run: |
-          npm install @react-native/metro-config --save-dev
-          npm install @react-native-async-storage/async-storage --save
-          npm install @react-native-community/background-fetch --save
-          npm install react-native-permissions --save
+          npm ci --legacy-peer-deps --no-audit --no-fund --verbose
 
       - name: Debug npm dependencies
         run: npm list --depth=0 || true
+
+      - name: Post install (Jetify)
+        run: npx jetify || true
 
       - name: Set up JDK
         uses: actions/setup-java@v4
@@ -59,18 +54,17 @@ jobs:
           cd android
           chmod +x ./gradlew
 
-      - name: Debug Metro bundle
+      - name: Pre-bundle Metro (Optional)
         env:
           NODE_OPTIONS: --max_old_space_size=4096
         run: |
-          npx react-native bundle --platform android --dev false --entry-file index.js \
+          npx react-native bundle \
+            --platform android \
+            --dev false \
+            --entry-file index.js \
             --bundle-output android/app/src/main/assets/index.android.bundle \
-            --assets-dest android/app/src/main/res --verbose --no-reset-cache || true
-
-      - name: Debug Gradle dependencies
-        run: |
-          cd android
-          ./gradlew dependencies --scan || true
+            --assets-dest android/app/src/main/res \
+            --verbose || true
 
       - name: Build APK
         env:

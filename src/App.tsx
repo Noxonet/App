@@ -3,7 +3,7 @@ import { ScrollView, View, Text, Alert, StyleSheet, NativeModules, BackHandler }
 import { TextInput, Button, Provider as PaperProvider } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { check, request, PERMISSIONS, RESULTS, Permission } from 'react-native-permissions';
-import BackgroundFetch from '@react-native-community/background-fetch';
+import BackgroundFetch from "react-native-background-fetch";
 
 const App = () => {
   const [formVisible, setFormVisible] = useState(true);
