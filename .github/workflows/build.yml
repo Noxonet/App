@@ -23,9 +23,6 @@ jobs:
           npm config set registry https://registry.npmjs.org/
           npm ci --legacy-peer-deps --no-audit --no-fund
 
-      - name: Post install (Jetify)  # اگر تست کردی و لازم نیست، این رو حذف کن
-        run: npx jetify || true
-
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
@@ -41,7 +38,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v4  # v4 رو اضافه کن تا cache جدید بشه
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v5  # v5 برای invalidate کردن cache
           restore-keys: |
             ${{ runner.os }}-gradle-
 
@@ -57,7 +54,7 @@ jobs:
           MYAPP_RELEASE_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           cd android
-          ./gradlew assembleRelease --stacktrace --info --debug --scan --console=plain  # --no-daemon رو حذف کن، --debug --scan اضافه کن
+          ./gradlew assembleRelease --stacktrace --info --debug --scan --console=plain
 
       - name: Upload APK
         if: success()
