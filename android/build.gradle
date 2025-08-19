@@ -5,16 +5,13 @@ buildscript {
         compileSdkVersion = 34
         targetSdkVersion = 34
         ndkVersion = "25.1.8904797"
-        kotlinVersion = "1.9.23" // 👈 نسخه Kotlin
     }
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://www.jitpack.io' }
-        maven { url "https://transistorsoft.github.io/react-native-background-fetch/repo" }
+        maven { url 'https://www.jitpack.io' } // ✅ برای هر پکیج که نیاز باشه
     }
     dependencies {
         classpath("com.android.tools.build:gradle:8.6.0")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion") // 👈 اینو اضافه کن
     }
 }

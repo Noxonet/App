@@ -1,25 +1,21 @@
+// settings.gradle
+
 pluginManagement {
     repositories {
-        maven {
-            url("$rootDir/../node_modules/react-native/android")
-        }
         google()
         mavenCentral()
         gradlePluginPortal()
+       
         maven { url "https://transistorsoft.github.io/react-native-background-fetch/repo" }
     }
-    includeBuild("../node_modules/@react-native/gradle-plugin")
 }
 
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
     repositories {
-        maven {
-            url("$rootDir/../node_modules/react-native/android")
-        }
         google()
         mavenCentral()
-        maven { url "https://www.jitpack.io" }
+    
         maven { url "https://transistorsoft.github.io/react-native-background-fetch/repo" }
     }
 }
