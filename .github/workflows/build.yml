@@ -41,21 +41,23 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v3
           restore-keys: |
             ${{ runner.os }}-gradle-
 
       - name: Make gradlew executable
-        working-directory: android
-        run: chmod +x ./gradlew
+        run: |
+          cd android
+          chmod +x ./gradlew
 
       - name: Build APK
-        working-directory: android
         env:
           MYAPP_RELEASE_STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
           MYAPP_RELEASE_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           MYAPP_RELEASE_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: ./gradlew assembleRelease --stacktrace --no-daemon --console=plain
+        run: |
+          cd android
+          ./gradlew assembleRelease --stacktrace --info --no-daemon --console=plain
 
       - name: Upload APK
         if: success()
