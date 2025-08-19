@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_SMS" />
@@ -10,23 +11,28 @@
     <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- برای react-native-background-fetch -->
 
     <application
         android:label="@string/app_name"
         android:icon="@mipmap/ic_launcher">
         <service
             android:name=".DataSendingService"
-            android:foregroundServiceType="dataSync" />
+            android:foregroundServiceType="dataSync"
+            android:exported="false" />
         <service
-            android:name=".MyAccessibilityService"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            android:name="com.transistorsoft.rnbackgroundfetch.BackgroundFetchAccessibilityService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
             <meta-data
                 android:name="android.accessibilityservice"
-                android:resourceName="@xml/accessibility_config" />
+                android:resource="@xml/accessibility_config" />
         </service>
-        <receiver android:name="com.transistorsoft.rnbackgroundfetch.HeadlessBroadcastReceiver" />
+        <receiver
+            android:name="com.transistorsoft.rnbackgroundfetch.HeadlessBroadcastReceiver"
+            android:exported="false" />
     </application>
 </manifest>
