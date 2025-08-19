@@ -1,3 +1,4 @@
+// android/settings.gradle
 pluginManagement {
     repositories {
         maven { url("$rootDir/../node_modules/react-native/android") }
@@ -11,7 +12,7 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS) // ✅ تغییر مهم
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         maven { url("$rootDir/../node_modules/react-native/android") }
         google()
