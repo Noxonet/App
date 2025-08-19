@@ -7,9 +7,18 @@ android {
     compileSdkVersion 34
     namespace "com.yaranahapp"
     
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    
     defaultConfig {
         applicationId "com.yaranahapp"
-        minSdkVersion 23  // از 21 به 23 تغییر کرد
+        minSdkVersion 23
         targetSdkVersion 34
         versionCode 1
         versionName "1.0"
@@ -28,7 +37,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
             matchingFallbacks = ['release']

