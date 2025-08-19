@@ -1,7 +1,7 @@
 buildscript {
     ext {
         buildToolsVersion = "34.0.0"
-        minSdkVersion = 21
+        minSdkVersion = 23  // از 21 به 23 تغییر کرد
         compileSdkVersion = 34
         targetSdkVersion = 34
         ndkVersion = "25.1.8904797"
@@ -21,6 +21,6 @@ allprojects {
         google()
         mavenCentral()
         maven { url 'https://www.jitpack.io' }
-        maven { url "$rootDir/../node_modules/react-native-background-fetch/android/libs" } // ✅ اضافه شده
+        maven { url "$rootDir/../node_modules/react-native-background-fetch/android/libs" }
     }
 }
