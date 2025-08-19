@@ -1,3 +1,5 @@
+// android/build.gradle
+
 buildscript {
     ext {
         buildToolsVersion = "34.0.0"
@@ -9,7 +11,9 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://www.jitpack.io' }   // ✅ اضافه کن
+        maven { url "https://www.jitpack.io" }
+        // ✅ مخزن TransistorSoft برای background-fetch
+        maven { url "https://transistorsoft.github.io/react-native-background-fetch/repo" }
     }
     dependencies {
         classpath("com.android.tools.build:gradle:8.6.0")
@@ -20,7 +24,8 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://www.jitpack.io' }   // ✅ اینم اضافه کن
+        maven { url "https://www.jitpack.io" }
+        // ✅ اینجا هم برای subprojects
         maven { url "https://transistorsoft.github.io/react-native-background-fetch/repo" }
     }
 }
