@@ -1,49 +1,35 @@
 plugins {
     id 'com.android.application'
-    id 'com.facebook.react'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    compileSdkVersion 34
-    namespace "com.yaranahapp"
+    namespace "com.app"
+    compileSdk rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.yaranahapp"
-        minSdkVersion 21
-        targetSdkVersion = 34
+        applicationId "com.app"
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-
-        missingDimensionStrategy "react-native-camera-android", "general"
-    }
-
-    signingConfigs {
-        release {
-            storeFile file('my-release-key.keystore')
-            storePassword System.getenv("MYAPP_RELEASE_STORE_PASSWORD")
-            keyAlias System.getenv("MYAPP_RELEASE_KEY_ALIAS")
-            keyPassword System.getenv("MYAPP_RELEASE_KEY_PASSWORD")
-        }
     }
 
     buildTypes {
         release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
-            matchingFallbacks = ['release']
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
         }
     }
+
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    ndkVersion rootProject.ext.ndkVersion
 }
 
 dependencies {
-    implementation 'com.facebook.react:react-android:0.74.5'
-    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'io.socket:socket.io-client:2.0.0'
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "com.facebook.react:react-android:+"
     implementation project(':react-native-background-fetch')
-}
 
-def enableHermes = true
-apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+    implementation("com.transistorsoft:tsbackgroundfetch:+")
+}
