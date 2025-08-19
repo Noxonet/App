@@ -1,39 +1,35 @@
-apply plugin: "com.android.application"
-apply plugin: "com.facebook.react"
-
-project.ext.react = [
-    enableHermes: true,  // تغییر به true یا false بر اساس نیاز
-]
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
 
 android {
     namespace "com.app"
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdk rootProject.ext.compileSdkVersion
 
     defaultConfig {
         applicationId "com.app"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdk rootProject.ext.minSdkVersion
+        targetSdk rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-        multiDexEnabled true
     }
 
     buildTypes {
         release {
-          
             minifyEnabled false
-            shrinkResources false
-            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
         }
     }
+
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    ndkVersion rootProject.ext.ndkVersion
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "com.facebook.react:react-android:+"
 
-    implementation("com.facebook.react:react-android")
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
-
-    // ✅ Background Fetch
-    implementation project(":react-native-background-fetch")
+    // پکیج Native
+    implementation project(':react-native-background-fetch')
 }
