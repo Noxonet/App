@@ -1,12 +1,18 @@
 plugins {
     id 'com.android.application'
     id 'com.facebook.react'
-    id 'org.jetbrains.kotlin.android' // اضافه شده برای پشتیبانی از Kotlin
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
     compileSdkVersion 34
     namespace "com.yaranahapp"
+    
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://www.jitpack.io' }
+    }
     
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -52,7 +58,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
     implementation 'io.socket:socket.io-client:2.1.0'
     implementation project(':react-native-background-fetch')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.22" 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.22"
 }
 
 def enableHermes = true
