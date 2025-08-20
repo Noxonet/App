@@ -8,12 +8,6 @@ android {
     compileSdkVersion 34
     namespace "com.yaranahapp"
     
-    repositories {
-        google()
-        mavenCentral()
-        maven { url 'https://www.jitpack.io' }
-    }
-    
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -23,14 +17,25 @@ android {
         jvmTarget = '1.8'
     }
     
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(8))
+        }
+    }
+    
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://www.jitpack.io' }
+    }
+    
     defaultConfig {
         applicationId "com.yaranahapp"
         minSdkVersion 23
         targetSdkVersion 34
         versionCode 1
         versionName "1.0"
-
-        missingDimensionStrategy "react-native-camera-android" ,"general"
+        missingDimensionStrategy "react-native-camera-android", "general"
     }
 
     signingConfigs {
