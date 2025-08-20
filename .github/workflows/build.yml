@@ -26,7 +26,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          java-version: '8'  # تغییر به Java 8
+          java-version: '17'  # تغییر به Java 17 برای sdkmanager
           distribution: 'temurin'
 
       - name: Set up Android SDK
@@ -38,7 +38,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v7  # v7 برای invalidate cache
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v8  # v8 برای invalidate cache
           restore-keys: |
             ${{ runner.os }}-gradle-
 
