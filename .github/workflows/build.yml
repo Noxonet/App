@@ -38,7 +38,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v21
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v22
           restore-keys: |
             ${{ runner.os }}-gradle-
 
@@ -59,6 +59,13 @@ jobs:
           java -version
           javac -version
           echo $JAVA_HOME
+
+      - name: Debug Gradle properties
+        run: |
+          cd android
+          cat gradle.properties
+          cat app/build.gradle
+          ./gradlew properties
 
       - name: Debug dependencies
         run: |

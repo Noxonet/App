@@ -1,6 +1,6 @@
 plugins {
     id 'com.android.application'
-    id 'com.facebook.react'
+    id 'com.facebook.react' version '0.74.5'
     id 'org.jetbrains.kotlin.android'
 }
 
@@ -24,6 +24,12 @@ android {
         }
     }
     
+    dexOptions {
+        javaMaxHeapSize "4g"
+        preDexLibraries true
+        incremental true
+    }
+    
     repositories {
         google()
         mavenCentral()
@@ -37,7 +43,7 @@ android {
         versionCode 1
         versionName "1.0"
         missingDimensionStrategy "react-native-camera-android", "general"
-        multiDexEnabled true
+        // multiDexEnabled true // برای دیباگ غیرفعال شده
     }
 
     signingConfigs {
@@ -63,7 +69,8 @@ configurations.all {
     resolutionStrategy {
         force 'com.squareup.okhttp3:okhttp:4.10.0'
         force 'com.squareup.okio:okio:3.0.0'
-        force 'com.facebook.fresco:imagepipeline-okhttp3:2.5.0'
+        force 'com.facebook.fresco:imagepipeline:2.5.0'
+        force 'androidx.appcompat:appcompat:1.4.2'
     }
 }
 
@@ -72,8 +79,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
-    implementation 'io.socket:socket.io-client:2.0.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'io.socket:socket.io-client:1.0.1'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'com.facebook.fresco:imagepipeline:2.5.0'
     implementation project(':react-native-background-fetch')
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.10'
 }
