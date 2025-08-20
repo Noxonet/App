@@ -26,7 +26,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          java-version: '17'  # سازگار با sdkmanager
+          java-version: '11'
           distribution: 'temurin'
 
       - name: Set up Android SDK
@@ -38,7 +38,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v8
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v10
           restore-keys: |
             ${{ runner.os }}-gradle-
 
