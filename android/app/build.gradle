@@ -11,6 +11,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled true
     }
     
     kotlinOptions {
@@ -30,6 +31,7 @@ android {
         versionCode 1
         versionName "1.0"
         missingDimensionStrategy "react-native-camera-android", "general"
+        multiDexEnabled true
     }
 
     signingConfigs {
@@ -52,12 +54,23 @@ android {
 }
 
 dependencies {
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'io.socket:socket.io-client:1.0.0'
     implementation project(':react-native-background-fetch')
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.10"
+    
+   
+    constraints {
+        implementation('org.jetbrains.kotlin:kotlin-stdlib:1.8.10') {
+            because 'kotlin-stdlib:1.9.22 is not compatible with Java 8 and minSdk 23'
+        }
+        implementation('com.squareup.okio:okio:3.2.0') {
+            because 'okio-jvm:3.6.0 is not compatible with Java 8 and minSdk 23'
+        }
+    }
 }
 
 def enableHermes = true
