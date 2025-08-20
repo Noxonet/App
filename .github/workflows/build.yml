@@ -38,19 +38,28 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v15
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v16
           restore-keys: |
             ${{ runner.os }}-gradle-
-
-      - name: Clean Gradle cache
-        run: |
-          cd android
-          ./gradlew clean
 
       - name: Make gradlew executable
         run: |
           cd android
           chmod +x ./gradlew
+          ls -l ./gradlew  # برای دیباگ پرمیشن‌ها
+
+      - name: Check Gradle and Java versions
+        run: |
+          cd android
+          ./gradlew --version
+          java -version
+          javac -version
+          echo $JAVA_HOME
+
+      - name: Clean Gradle cache
+        run: |
+          cd android
+          ./gradlew clean
 
       - name: Build APK
         env:
