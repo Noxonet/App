@@ -38,9 +38,14 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v14
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v15
           restore-keys: |
             ${{ runner.os }}-gradle-
+
+      - name: Clean Gradle cache
+        run: |
+          cd android
+          ./gradlew clean
 
       - name: Make gradlew executable
         run: |
