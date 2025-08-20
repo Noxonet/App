@@ -32,20 +32,6 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Set up JDK 8 for Gradle
-        uses: actions/setup-java@v4
-        with:
-          java-version: '8'
-          distribution: 'temurin'
-          java-package: jdk
-          architecture: x64
-
-      - name: Find JDK 8 path
-        id: find_jdk8
-        run: |
-          JDK8_PATH=$(find /opt/hostedtoolcache -name 'jdk-8*' -type d | head -n 1)
-          echo "JDK8_PATH=$JDK8_PATH" >> $GITHUB_ENV
-
       - name: Cache Gradle dependencies
         uses: actions/cache@v4
         with:
@@ -66,7 +52,6 @@ jobs:
           MYAPP_RELEASE_STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
           MYAPP_RELEASE_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           MYAPP_RELEASE_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          JAVA_HOME: ${{ env.JDK8_PATH }}
         run: |
           cd android
           ./gradlew assembleRelease --stacktrace --info --debug --scan --console=plain --warning-mode all
