@@ -26,7 +26,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '8'  # تغییر به Java 8
           distribution: 'temurin'
 
       - name: Set up Android SDK
@@ -38,7 +38,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v5  # v5 برای invalidate کردن cache
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v7  # v7 برای invalidate cache
           restore-keys: |
             ${{ runner.os }}-gradle-
 
@@ -54,7 +54,7 @@ jobs:
           MYAPP_RELEASE_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           cd android
-          ./gradlew assembleRelease --stacktrace --info --debug --scan --console=plain
+          ./gradlew assembleRelease --stacktrace --info --debug --scan --console=plain --warning-mode all
 
       - name: Upload APK
         if: success()
