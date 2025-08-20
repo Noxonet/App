@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'com.facebook.react'
+    id 'org.jetbrains.kotlin.android' // اضافه شده برای پشتیبانی از Kotlin
 }
 
 android {
@@ -37,7 +38,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled false  
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
             matchingFallbacks = ['release']
@@ -51,6 +52,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
     implementation 'io.socket:socket.io-client:2.1.0'
     implementation project(':react-native-background-fetch')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.22" 
 }
 
 def enableHermes = true
