@@ -59,12 +59,21 @@ android {
     }
 }
 
+configurations.all {
+    resolutionStrategy {
+        force 'com.squareup.okhttp3:okhttp:4.10.0'
+        force 'com.squareup.okio:okio:3.0.0'
+        force 'com.facebook.fresco:imagepipeline-okhttp3:2.5.0'
+    }
+}
+
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
-    implementation 'com.squareup.okhttp3:okhttp:4.10.0' // downgrade برای سازگاری با okio:3.0.0
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'io.socket:socket.io-client:1.0.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+    implementation 'io.socket:socket.io-client:2.0.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation project(':react-native-background-fetch')
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.10'
 }
