@@ -62,7 +62,7 @@ dependencies {
     implementation project(':react-native-background-fetch')
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.8.10"
     
-   
+    
     constraints {
         implementation('org.jetbrains.kotlin:kotlin-stdlib:1.8.10') {
             because 'kotlin-stdlib:1.9.22 is not compatible with Java 8 and minSdk 23'
