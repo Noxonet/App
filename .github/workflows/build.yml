@@ -29,6 +29,9 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
       - name: Set up JDK 8 for Gradle
         uses: actions/setup-java@v4
         with:
@@ -36,10 +39,6 @@ jobs:
           distribution: 'temurin'
           java-package: jdk
           architecture: x64
-          cache: gradle
-
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
 
       - name: Cache Gradle dependencies
         uses: actions/cache@v4
@@ -47,7 +46,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v11
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v13
           restore-keys: |
             ${{ runner.os }}-gradle-
 
