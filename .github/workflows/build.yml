@@ -38,15 +38,13 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v19
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v20
           restore-keys: |
             ${{ runner.os }}-gradle-
 
       - name: Clear Gradle cache
         run: |
           rm -rf ~/.gradle/caches
-          cd android
-          ./gradlew cleanBuildCache
 
       - name: Make gradlew executable
         run: |
@@ -61,6 +59,11 @@ jobs:
           java -version
           javac -version
           echo $JAVA_HOME
+
+      - name: Debug dependencies
+        run: |
+          cd android
+          ./gradlew :app:dependencies
 
       - name: Clean Gradle
         run: |
