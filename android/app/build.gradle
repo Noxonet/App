@@ -73,6 +73,9 @@ configurations.all {
         force 'com.facebook.react:react-android:0.74.5'
         force 'androidx.appcompat:appcompat:1.6.1'
         force 'io.socket:socket.io-client:2.1.0'
+        force 'com.google.firebase:firebase-annotations:16.2.0'
+        force 'com.facebook.android:facebook-bolts:1.4.0'
+        force 'androidx.annotation:annotation:1.8.2'
     }
 }
 
@@ -87,6 +90,9 @@ dependencies {
     implementation project(':react-native-background-fetch')
     implementation project(':react-native-camera')
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:2.0.20'
+    implementation 'com.google.firebase:firebase-annotations:16.2.0'
+    implementation 'com.facebook.android:facebook-bolts:1.4.0'
+    implementation 'androidx.annotation:annotation:1.8.2'
 }
 
 def enableHermes = true

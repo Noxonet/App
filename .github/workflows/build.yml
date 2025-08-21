@@ -44,7 +44,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v41
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v42
           restore-keys: |
             ${{ runner.os }}-gradle-
 
@@ -79,11 +79,11 @@ jobs:
           ./gradlew :app:dependencies > dependencies.txt
           cat dependencies.txt
 
-      - name: Debug dexing issues
+      - name: Debug Kotlin compilation
         run: |
           cd android
-          ./gradlew :app:mergeExtDexRelease --stacktrace --debug --info > dexing_log.txt
-          cat dexing_log.txt
+          ./gradlew :app:compileReleaseKotlin --stacktrace --debug --info > kotlin_compile_log.txt
+          cat kotlin_compile_log.txt
 
       - name: Clean Gradle
         run: |
@@ -114,5 +114,6 @@ jobs:
           name: debug-logs
           path: |
             android/dependencies.txt
+            android/kotlin_compile_log.txt
             android/dexing_log.txt
             ~/.gradle/heapdump.hprof
