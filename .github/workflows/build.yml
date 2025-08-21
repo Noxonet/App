@@ -38,7 +38,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v22
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v23
           restore-keys: |
             ${{ runner.os }}-gradle-
 
@@ -70,7 +70,14 @@ jobs:
       - name: Debug dependencies
         run: |
           cd android
-          ./gradlew :app:dependencies
+          ./gradlew :app:dependencies > dependencies.txt
+          cat dependencies.txt
+
+      - name: Debug dexing issues
+        run: |
+          cd android
+          ./gradlew :app:mergeExtDexRelease --stacktrace --info > dexing_log.txt
+          cat dexing_log.txt
 
       - name: Clean Gradle
         run: |
@@ -92,3 +99,12 @@ jobs:
         with:
           name: app-release.apk
           path: android/app/build/outputs/apk/release/app-release.apk
+
+      - name: Upload debug logs
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-logs
+          path: |
+            android/dependencies.txt
+            android/dexing_log.txt

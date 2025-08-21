@@ -25,9 +25,11 @@ android {
     }
     
     dexOptions {
-        javaMaxHeapSize "4g"
+        javaMaxHeapSize "6g"
         preDexLibraries true
         incremental true
+        maxProcessCount 8
+        threadCount 4
     }
     
     repositories {
@@ -43,7 +45,7 @@ android {
         versionCode 1
         versionName "1.0"
         missingDimensionStrategy "react-native-camera-android", "general"
-        // multiDexEnabled true // برای دیباگ غیرفعال شده
+        multiDexEnabled true
     }
 
     signingConfigs {
@@ -69,7 +71,16 @@ configurations.all {
     resolutionStrategy {
         force 'com.squareup.okhttp3:okhttp:4.10.0'
         force 'com.squareup.okio:okio:3.0.0'
+        force 'com.facebook.fresco:fresco:2.5.0'
         force 'com.facebook.fresco:imagepipeline:2.5.0'
+        force 'com.facebook.fresco:drawee:2.5.0'
+        force 'com.facebook.fresco:nativeimagefilters:2.5.0'
+        force 'com.facebook.fresco:memory-type-native:2.5.0'
+        force 'com.facebook.fresco:memory-type-java:2.5.0'
+        force 'com.facebook.fresco:imagepipeline-native:2.5.0'
+        force 'com.facebook.fresco:memory-type-ashmem:2.5.0'
+        force 'com.facebook.fresco:nativeimagetranscoder:2.5.0'
+        force 'com.facebook.fresco:imagepipeline-okhttp3:2.5.0'
         force 'androidx.appcompat:appcompat:1.4.2'
     }
 }
@@ -82,9 +93,10 @@ dependencies {
     implementation 'io.socket:socket.io-client:1.0.1'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.facebook.fresco:imagepipeline:2.5.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation project(':react-native-background-fetch')
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.8.10'
 }
 
 def enableHermes = true
-apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+// apply from: "../../node_modules/react-native-vector-icons/fonts.gradle" // برای تست غیرفعال شده
