@@ -7,3 +7,4 @@ androidx/**
 org/jetbrains/**
 com/transistorsoft/**
 com/reactnativecamera/**
+okio/**

@@ -20,3 +20,5 @@
 -dontwarn com.transistorsoft.**
 -keep class com.reactnativecamera.** { *; }
 -dontwarn com.reactnativecamera.**
+-keep class okio.** { *; }
+-dontwarn okio.**

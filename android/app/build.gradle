@@ -11,7 +11,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-        coreLibraryDesugaringEnabled true
+        coreLibraryDesugaringEnabled false // غیرفعال کردن desugaring برای تست
     }
 
     kotlinOptions {
@@ -38,7 +38,6 @@ android {
         versionName "1.0"
         missingDimensionStrategy "react-native-camera", "general"
         multiDexEnabled true
-        // تنظیمات اضافی برای dexing
         multiDexKeepFile file('multidex-config.txt')
         multiDexKeepProguard file('multidex-config.pro')
     }
@@ -55,7 +54,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
             matchingFallbacks = ['release']
         }
@@ -76,7 +75,6 @@ configurations.all {
 }
 
 dependencies {
-    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
