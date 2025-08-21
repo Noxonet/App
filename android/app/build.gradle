@@ -69,7 +69,7 @@ configurations.all {
         force 'com.squareup.retrofit2:converter-gson:2.11.0'
         force 'com.google.code.gson:gson:2.10.1'
         force 'com.facebook.react:react-android:0.74.5'
-        force 'androidx.appcompat:appcompat:1.7.0'
+        force 'androidx.appcompat:appcompat:1.6.1'
         force 'io.socket:socket.io-client:2.1.0'
     }
 }
@@ -79,7 +79,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.11.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
     implementation 'com.google.code.gson:gson:2.10.1'
-    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'io.socket:socket.io-client:2.1.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation project(':react-native-background-fetch')
