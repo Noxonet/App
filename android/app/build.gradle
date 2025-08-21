@@ -24,12 +24,6 @@ android {
         }
     }
 
-    repositories {
-        google()
-        mavenCentral()
-        maven { url 'https://www.jitpack.io' }
-    }
-
     defaultConfig {
         applicationId "com.yaranahapp"
         minSdkVersion 23
