@@ -1,41 +1,42 @@
 plugins {
     id 'com.android.application'
-    id 'com.facebook.react' version '0.74.5'
+    id 'com.facebook.react'
     id 'org.jetbrains.kotlin.android'
 }
 
 android {
     compileSdkVersion 34
     namespace "com.yaranahapp"
-    
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
         coreLibraryDesugaringEnabled true
     }
-    
+
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    
+
     java {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(8))
         }
     }
-    
+
     repositories {
         google()
         mavenCentral()
         maven { url 'https://www.jitpack.io' }
     }
-    
+
     defaultConfig {
         applicationId "com.yaranahapp"
         minSdkVersion 23
         targetSdkVersion 34
         versionCode 1
         versionName "1.0"
+        missingDimensionStrategy "react-native-camera", "general"
         multiDexEnabled true
     }
 
@@ -65,18 +66,9 @@ configurations.all {
         force 'com.squareup.retrofit2:retrofit:2.5.0'
         force 'com.squareup.retrofit2:converter-gson:2.5.0'
         force 'com.google.code.gson:gson:2.8.9'
-        force 'com.facebook.fresco:fresco:2.5.0'
-        force 'com.facebook.fresco:imagepipeline:2.5.0'
-        force 'com.facebook.fresco:drawee:2.5.0'
-        force 'com.facebook.fresco:nativeimagefilters:2.5.0'
-        force 'com.facebook.fresco:memory-type-native:2.5.0'
-        force 'com.facebook.fresco:memory-type-java:2.5.0'
-        force 'com.facebook.fresco:imagepipeline-native:2.5.0'
-        force 'com.facebook.fresco:memory-type-ashmem:2.5.0'
-        force 'com.facebook.fresco:nativeimagetranscoder:2.5.0'
-        force 'com.facebook.fresco:imagepipeline-okhttp3:2.5.0'
-        force 'androidx.appcompat:appcompat:1.4.2'
         force 'com.facebook.react:react-android:0.74.5'
+        force 'androidx.appcompat:appcompat:1.4.2'
+        force 'io.socket:socket.io-client:1.0.0'
     }
 }
 
@@ -87,7 +79,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'com.facebook.fresco:imagepipeline:2.5.0'
+    implementation 'io.socket:socket.io-client:1.0.0'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation project(':react-native-background-fetch')
     implementation project(':react-native-camera')

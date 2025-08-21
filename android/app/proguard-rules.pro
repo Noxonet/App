@@ -14,9 +14,9 @@
 -dontwarn com.google.code.gson.**
 -keep class com.yaranahapp.** { *; }
 -dontwarn com.yaranahapp.**
--keep class com.facebook.fresco.** { *; }
--dontwarn com.facebook.fresco.**
 -keep class androidx.** { *; }
 -dontwarn androidx.**
+-keep class io.socket.** { *; }
+-dontwarn io.socket.**
 -keep class com.reactnativecamera.** { *; }
 -dontwarn com.reactnativecamera.**
