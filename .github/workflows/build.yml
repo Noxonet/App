@@ -31,6 +31,8 @@ jobs:
 
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+        env:
+          SKIP_JDK_VERSION_CHECK: true
 
       - name: Cache Gradle dependencies
         uses: actions/cache@v4
@@ -38,7 +40,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v39
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v40
           restore-keys: |
             ${{ runner.os }}-gradle-
 
