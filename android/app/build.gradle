@@ -24,14 +24,6 @@ android {
         }
     }
     
-    dexOptions {
-        javaMaxHeapSize "8g"
-        preDexLibraries true
-        incremental true
-        maxProcessCount 8
-        threadCount 4
-    }
-    
     repositories {
         google()
         mavenCentral()
@@ -73,6 +65,7 @@ configurations.all {
         force 'com.squareup.okio:okio:2.10.0'
         force 'com.squareup.retrofit2:retrofit:2.5.0'
         force 'com.squareup.retrofit2:converter-gson:2.5.0'
+        force 'com.google.code.gson:gson:2.8.9'
         force 'com.facebook.fresco:fresco:2.5.0'
         force 'com.facebook.fresco:imagepipeline:2.5.0'
         force 'com.facebook.fresco:drawee:2.5.0'
@@ -93,6 +86,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.facebook.fresco:imagepipeline:2.5.0'
     implementation 'androidx.multidex:multidex:2.0.1'

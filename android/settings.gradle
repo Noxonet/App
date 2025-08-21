@@ -25,5 +25,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "android"
 include(":app")
-include(":react-native-background-fetch")
+include ':react-native-background-fetch'
 project(':react-native-background-fetch').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-background-fetch/android')
+include ':react-native-camera'
+project(':react-native-camera').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-camera/android')
