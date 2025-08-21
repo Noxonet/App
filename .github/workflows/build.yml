@@ -38,7 +38,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v23
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v24
           restore-keys: |
             ${{ runner.os }}-gradle-
 
@@ -76,7 +76,7 @@ jobs:
       - name: Debug dexing issues
         run: |
           cd android
-          ./gradlew :app:mergeExtDexRelease --stacktrace --info > dexing_log.txt
+          ./gradlew :app:mergeExtDexRelease --stacktrace --debug > dexing_log.txt
           cat dexing_log.txt
 
       - name: Clean Gradle
@@ -91,7 +91,7 @@ jobs:
           MYAPP_RELEASE_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
           cd android
-          ./gradlew assembleRelease --stacktrace --info --debug --scan --console=plain --warning-mode all
+          ./gradlew assembleRelease --stacktrace --debug --scan --console=plain --warning-mode all
 
       - name: Upload APK
         if: success()
