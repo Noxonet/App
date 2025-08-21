@@ -23,10 +23,10 @@ jobs:
           npm config set registry https://registry.npmjs.org/
           npm ci --legacy-peer-deps --no-audit --no-fund
 
-      - name: Set up JDK 8
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: '8'
+          java-version: '17'
           distribution: 'temurin'
 
       - name: Set up Android SDK
@@ -38,7 +38,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v38
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v39
           restore-keys: |
             ${{ runner.os }}-gradle-
 
