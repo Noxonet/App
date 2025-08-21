@@ -38,7 +38,7 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v26
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*') }}-v28
           restore-keys: |
             ${{ runner.os }}-gradle-
 
@@ -50,7 +50,7 @@ jobs:
         run: |
           cd android
           chmod +x ./gradlew
-          ls -l ./gradlew  # برای دیباگ پرمیشن‌ها
+          ls -l ./gradlew
 
       - name: Check Gradle and Java versions
         run: |
