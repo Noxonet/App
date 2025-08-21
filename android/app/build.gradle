@@ -38,6 +38,9 @@ android {
         versionName "1.0"
         missingDimensionStrategy "react-native-camera", "general"
         multiDexEnabled true
+        // تنظیمات اضافی برای dexing
+        multiDexKeepFile file('multidex-config.txt')
+        multiDexKeepProguard file('multidex-config.pro')
     }
 
     signingConfigs {
@@ -63,23 +66,23 @@ configurations.all {
     resolutionStrategy {
         force 'com.squareup.okhttp3:okhttp:4.9.3'
         force 'com.squareup.okio:okio:2.10.0'
-        force 'com.squareup.retrofit2:retrofit:2.5.0'
-        force 'com.squareup.retrofit2:converter-gson:2.5.0'
+        force 'com.squareup.retrofit2:retrofit:2.9.0'
+        force 'com.squareup.retrofit2:converter-gson:2.9.0'
         force 'com.google.code.gson:gson:2.8.9'
         force 'com.facebook.react:react-android:0.74.5'
         force 'androidx.appcompat:appcompat:1.4.2'
-        force 'io.socket:socket.io-client:1.0.0'
+        force 'io.socket:socket.io-client:2.0.1'
     }
 }
 
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
-    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'androidx.appcompat:appcompat:1.4.2'
-    implementation 'io.socket:socket.io-client:1.0.0'
+    implementation 'io.socket:socket.io-client:2.0.1'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation project(':react-native-background-fetch')
     implementation project(':react-native-camera')

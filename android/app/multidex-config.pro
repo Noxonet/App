@@ -1,0 +1,22 @@
+-keep class com.yaranahapp.** { *; }
+-dontwarn com.yaranahapp.**
+-keep class com.squareup.okhttp3.** { *; }
+-dontwarn com.squareup.okhttp3.**
+-keep class com.squareup.okio.** { *; }
+-dontwarn com.squareup.okio.**
+-keep class com.squareup.retrofit2.** { *; }
+-dontwarn com.squareup.retrofit2.**
+-keep class com.google.code.gson.** { *; }
+-dontwarn com.google.code.gson.**
+-keep class io.socket.** { *; }
+-dontwarn io.socket.**
+-keep class com.facebook.** { *; }
+-dontwarn com.facebook.**
+-keep class androidx.** { *; }
+-dontwarn androidx.**
+-keep class org.jetbrains.** { *; }
+-dontwarn org.jetbrains.**
+-keep class com.transistorsoft.** { *; }
+-dontwarn com.transistorsoft.**
+-keep class com.reactnativecamera.** { *; }
+-dontwarn com.reactnativecamera.**

@@ -1,0 +1,9 @@
+com/yaranahapp/**
+com/squareup/**
+io/socket/**
+com/google/gson/**
+com/facebook/**
+androidx/**
+org/jetbrains/**
+com/transistorsoft/**
+com/reactnativecamera/**
